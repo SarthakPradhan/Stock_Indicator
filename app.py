@@ -27,13 +27,13 @@ def grab_data(stock_symbol):
     }
     response = requests.get(API_ENDPOINT, params=params)
     data = response.json()
-    stock_prices = data['Time Series (1min)']
-    prices_list = [(k, float(v['4. close'])) for k, v in stock_prices.items()]
-
-    # Calculate the time range to display on the chart (last 30 minutes)
-    current_time = prices_list[0][0]
-    thirty_minutes_ago = pd.Timestamp(current_time) - pd.Timedelta(minutes=30)
-    prices_list_30 = [(k, v) for k, v in prices_list if pd.Timestamp(k) >= thirty_minutes_ago]
+    # stock_prices = data['Time Series (1min)']
+    # prices_list = [(k, float(v['4. close'])) for k, v in stock_prices.items()]
+    #
+    # # Calculate the time range to display on the chart (last 30 minutes)
+    # current_time = prices_list[0][0]
+    # thirty_minutes_ago = pd.Timestamp(current_time) - pd.Timedelta(minutes=30)
+    # prices_list_30 = [(k, v) for k, v in prices_list if pd.Timestamp(k) >= thirty_minutes_ago]
     return data
 
 class StockApp(tk.Frame):
@@ -78,7 +78,7 @@ class StockApp(tk.Frame):
 
         # Calculate the time range to display on the chart (last 30 minutes)
         current_time = prices_list[0][0]
-        thirty_minutes_ago = pd.Timestamp(current_time) - pd.Timedelta(minutes=30)
+        thirty_minutes_ago = pd.Timestamp(current_time) - pd.Timedelta(minutes=600)
         prices_list = [(k, v) for k, v in prices_list if pd.Timestamp(k) >= thirty_minutes_ago]
 
         # Update the label to display the latest stock data
